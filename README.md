@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.webp" alt="cc-orchestrator" width="100%">
+  <img src="assets/cover.webp" alt="cc-orchestrator" width="100%">
 </p>
 
 # cc-orchestrator
@@ -129,11 +129,28 @@ Why this shape, and not something fancier? Because Claude Code's subagents are s
 ## Six things that took the longest to learn
 
 1. **`codex exec --full-auto` means `-a on-request -s workspace-write`.** Headless runs need `-a never` so the worker doesn't park on an approval prompt.
+
+   <p align="center"><img src="assets/inline/1-full-auto.webp" alt="penguin watching a frozen Codex worker robot waiting for approval" width="100%"></p>
+
 2. **The Codex sandbox runs with network off by default.** When the task needs `npm install`, add `-c sandbox_workspace_write.network_access=true` explicitly — opening a flag is safer than turning the sandbox off.
+
+   <p align="center"><img src="assets/inline/2-sandbox-network.webp" alt="penguin holding a key, robot inside a translucent sandbox dome" width="100%"></p>
+
 3. **Success has three signals.** Exit code 0 + a `turn.completed` event in the JSONL stream + your sidecar file from `--output-last-message` actually landed on disk. Trust all three; one alone lies.
+
+   <p align="center"><img src="assets/inline/3-three-signals.webp" alt="three checkmark signal items on pedestals being inspected" width="100%"></p>
+
 4. **Treat 30 minutes as the cap on a single Codex run.** `/compact` can time out past that point and `codex resume` will return a dead session. Split work into ≤25-min chunks, write digests at each break, start fresh sessions to continue.
+
+   <p align="center"><img src="assets/inline/4-30min-cap.webp" alt="penguin segmenting a long log into 25-min chunks; the right end is shattered" width="100%"></p>
+
 5. **Hand code reviews to a different model family.** Self-review has a 64.5% blind spot — the model that wrote the code shares priors with the one auditing. That's why Claude Code orchestrates on top and Sonnet does the cross-family review underneath.
+
+   <p align="center"><img src="assets/inline/5-cross-family-review.webp" alt="wooden robot writer hands diff to a fox-like reviewer with glasses while penguin supervises" width="100%"></p>
+
 6. **Three parallel workers is the sweet spot.** On Codex Pro, four concurrent worktrees collides with the 5-hour credit window. Three is the cap.
+
+   <p align="center"><img src="assets/inline/6-three-parallel.webp" alt="three robots happily working at stations with a fourth collapsed on the right" width="100%"></p>
 
 ---
 

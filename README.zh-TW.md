@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.webp" alt="cc-orchestrator" width="100%">
+  <img src="assets/cover.webp" alt="cc-orchestrator" width="100%">
 </p>
 
 # cc-orchestrator
@@ -132,11 +132,28 @@ Markdown 跟 JSON template，包含 envelope、error event、checkpoint、decisi
 ## 學最久才學會的六件事
 
 1. **`codex exec --full-auto` 等於 `-a on-request -s workspace-write`**：headless 跑要加 `-a never`，worker 才不會停在 approval prompt。
+
+   <p align="center"><img src="assets/inline/1-full-auto.webp" alt="小企鵝看著被 approval prompt 凍在原地的 Codex 機器人 worker" width="100%"></p>
+
 2. **Codex sandbox 預設網路關閉**：任務需要 `npm install` 時顯式加 `-c sandbox_workspace_write.network_access=true`——開一個 flag 比關 sandbox 安全。
+
+   <p align="center"><img src="assets/inline/2-sandbox-network.webp" alt="小企鵝拿著金色鑰匙，機器人在透明 sandbox 圓罩內" width="100%"></p>
+
 3. **成功要看三個訊號**：exit code 0 + JSONL stream 裡有 `turn.completed` event + `--output-last-message` 寫的 sidecar 真的落地。三件都對才算數，單看一件會被騙。
+
+   <p align="center"><img src="assets/inline/3-three-signals.webp" alt="三個 checkmark 訊號排在底座上，小企鵝拿放大鏡逐一檢查" width="100%"></p>
+
 4. **把 30 分鐘當作單個 Codex run 的上限**：超過這個點 `/compact` 可能 timeout，`codex resume` 拿到的是死 session。把工作切成 ≤25 分鐘的段、每段寫 digest、要續接就開新 session。
+
+   <p align="center"><img src="assets/inline/4-30min-cap.webp" alt="小企鵝把長 log 切成段，最右邊那段被 30 分鐘的閃電擊碎" width="100%"></p>
+
 5. **把 code review 交給另一個 model family**：self-review 有 64.5% 盲點——寫 code 的模型跟審 code 的模型同 prior。所以 Claude Code 在上面 orchestrate，Sonnet 在下面做 cross-family review。
+
+   <p align="center"><img src="assets/inline/5-cross-family-review.webp" alt="木頭機器人把 diff 交給戴眼鏡的狐狸 reviewer，小企鵝在中央督察" width="100%"></p>
+
 6. **三個並行 worker 是甜蜜點**：Codex Pro 上第四條 worktree 會撞 5-hour credit window。上限 3。
+
+   <p align="center"><img src="assets/inline/6-three-parallel.webp" alt="三個機器人 worker 各自開心工作，最右邊第四個累倒在地" width="100%"></p>
 
 ---
 
