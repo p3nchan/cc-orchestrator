@@ -1,212 +1,184 @@
 <p align="center">
-  <img src="assets/banner.webp" alt="Orchestration Playbook" width="100%">
+  <img src="assets/banner.webp" alt="cc-orchestrator" width="100%">
 </p>
 
-# Orchestration Playbook
+# cc-orchestrator
 
-> **🐧 中文網頁版** — [penchan.co/ai/orchestration-playbook](https://penchan.co/ai/orchestration-playbook/)
+> **🐧 中文版** — [README.zh-TW.md](README.zh-TW.md) · [penchan.co/ai/orchestration-playbook](https://penchan.co/ai/orchestration-playbook/)
 
-**Battle-tested patterns for running multi-agent AI systems in production.** Not theory. Not a framework. Operational patterns from months of running 5+ agents across multiple models, distilled into reusable practices.
+**Run Claude Code as the orchestrator. Use Codex CLI as the worker. This is the playbook for the parts the official docs leave to you.**
 
-> Most multi-agent resources tell you *what* to build. This tells you *how to keep it running* -- file-based communication, failure recovery, cost control, human escalation, model selection. The boring stuff that makes the difference between a demo and a system.
-
----
-
-## Who This Is For
-
-- You run Claude Code (or similar) with subagents and want to stop reinventing coordination patterns
-- You're building a multi-agent system and want to avoid the failure modes someone else already hit
-- You need practical templates, not another framework to install
-
-## What This Is NOT
-
-- Not a framework or library -- no code to install
-- Not about agent *topology* (Panel, Tournament, Debate) -- see [multi-agent-patterns](https://github.com/p3nchan/multi-agent-patterns) for that
-- Not platform-specific -- patterns work with Claude Code, Codex, Gemini, or custom setups
+If you're already running Claude Code with subagents, you know the easy half: "spawn a subagent and ask it to do X." The hard half is everything around it — when to delegate to Codex instead of a Claude subagent, how to choose effort tier so your weekly credit window lasts, how to keep the sandbox honest about your `npm install`, what "success" actually means in three signals instead of one. That's what this repo is about.
 
 ---
 
-## Table of Contents
+## Why this exists
 
-<img src="assets/sections/patterns.webp" alt="Patterns" width="100%">
+Two of the most capable AI coding stacks in 2026 — Anthropic's Claude Code and OpenAI's Codex CLI — were each designed standalone. They have separate docs. The interaction between them lives in your terminal history.
 
-### Patterns
+The natural division of labour, once you've spent a few weeks running both, is:
 
-Core operational patterns for multi-agent coordination:
+- **Claude Code** sits on top: planning, reviewing, holding the spec, deciding what's done.
+- **Codex CLI** does the code: implementing, refactoring, generating tests, running the long edits.
 
-| Pattern | Summary | When You Need It |
-|---------|---------|-----------------|
-| [File Blackboard](patterns/file-blackboard.md) | Agents communicate through files, not messages | Always -- this is the foundation |
-| [Task Envelope](patterns/task-envelope.md) | Structured task packaging for subagents | Every time you spawn a subagent |
-| [Challenge Loop](patterns/challenge-loop.md) | Evidence-based adversarial review with anti-sycophancy | Spec reviews, algorithm validation, any iterative refinement |
-| [Circuit Breaker](patterns/circuit-breaker.md) | Stop cascading failures before they burn your budget | Any system with retries or external APIs |
-| [HITL Escalation](patterns/hitl-escalation.md) | Three-tier human-in-the-loop gating | Any autonomous system with real-world side effects |
-| [Structured Error Events](patterns/structured-error-events.md) | Standard format for agent status reporting | Multi-step workflows with dependencies |
-| [Checkpoint & Resume](patterns/checkpoint-resume.md) | Survive session crashes without losing progress | Long-running or multi-phase tasks |
-| [Dead Letter Queue](patterns/dead-letter-queue.md) | Failed tasks don't disappear -- they wait for retry | Systems that can't afford to drop work |
-| [Completion Notification](patterns/completion-notification.md) | Agents must report done/failed, never go silent | Every agent interaction |
+That sounds clean in a slide. In practice the seams are everywhere — sandbox boundaries, effort tier costs, observability, hook gaps, the way `/compact` can kill a 30-minute session, the way `--full-auto` means a specific approval policy rather than "ask nothing." This repo turns the running notes from doing it for real into patterns you can copy.
 
-<img src="assets/sections/guides.webp" alt="Guides" width="100%">
+## Who this is for
 
-### Guides
+- You use Claude Code as your daily driver and want to start using Codex CLI as a worker with a starter set of rules to extend.
+- You hit a Codex sandbox error and want a fast read on whether it's the path, the network, or the policy — so you spend the afternoon shipping instead of guessing.
+- You want orchestration patterns that fail loudly when something breaks, so you can act on real signals.
 
-Practical guides for day-to-day operations:
+## Scope
 
-| Guide | Summary |
-|-------|---------|
-| [Model Selection](guides/model-selection.md) | When to use expensive vs cheap models -- with a decision matrix |
-| [Error Handling](guides/error-handling.md) | The 5-layer fallback pyramid and retry-vs-restart decision tree |
-| [Cost Control](guides/cost-control.md) | Per-task budgets, context pruning, and anti-patterns that burn money |
-| [Code Review](guides/code-review.md) | Cross-family review beats self-review -- here's the evidence |
-| [Spec-Driven Development](guides/spec-driven-development.md) | Spec quality is the bottleneck, not review stages |
-| [Development Pipeline](guides/development-pipeline.md) | Phase-based workflow for algorithm and code development |
-| [Context Management](guides/context-management.md) | Keep subagent prompts lean -- pass paths, not full files |
-| [Security Guardrails](guides/security-guardrails.md) | Tool permissions, path restrictions, prompt injection defense |
-| [Learning Loop](guides/learning-loop.md) | Turn failures into prevention -- debug KB, error SOP, quarterly audits |
-
-### Templates
-
-Copy-paste starting points:
-
-| Template | Format |
-|----------|--------|
-| [Task Envelope](templates/task-envelope.md) | Markdown |
-| [Task Envelope (lightweight)](templates/task-envelope-lightweight.md) | Markdown (for simple tasks) |
-| [Error Event](templates/error-event.md) | Structured status format |
-| [Checkpoint](templates/checkpoint.json) | JSON |
-| [Decision Card](templates/decision-card.md) | Markdown |
-| [Dead Letter](templates/dead-letter.json) | JSON |
+| Topic | Where to find it |
+|---|---|
+| Operational patterns + prompt templates (markdown, no install) | **Here** |
+| Codex CLI fundamentals (first-time setup, basic invocation) | [Codex CLI docs](https://developers.openai.com/codex/) |
+| Claude Code fundamentals (sessions, subagents, tool use) | [Anthropic Claude Code docs](https://docs.claude.com/en/docs/claude-code/overview) |
+| Tested target | Codex CLI 0.124 + Claude Code as of April 2026. The abstract patterns generalise; the operational details (effort tiers, hook event names, sandbox flags) are pinned to those versions. |
 
 ---
 
-## Quick Start
+## Where to start
 
-### 1. Start with File Blackboard
+If you have 5 minutes:
 
-Your agents need a shared workspace. Pick a directory, establish conventions:
+1. Read **[guides/orchestrating-codex.md](guides/orchestrating-codex.md)** — the headline guide. The 4-Lane model (local · worktree · cloud · MCP+hooks), how to pick effort, what a working dispatch actually looks like.
+2. Skim **[patterns/coordination/file-blackboard.md](patterns/coordination/file-blackboard.md)** — every multi-agent system needs one. This is the one used here.
+3. Pick a problem you actually have and jump to its pattern.
 
-```
-workspace/
-  status.md          # project state -- only the orchestrator writes this
-  tasks/             # task envelopes for subagents
-  artifacts/         # subagent outputs
-  checkpoints/       # crash recovery snapshots
-```
+If you have an hour:
 
-One rule: **Only the orchestrator writes global state.** Subagents write to their designated output locations and report back. The orchestrator decides what to accept.
-
-### 2. Wrap Every Task in an Envelope
-
-Don't just tell a subagent "do X". Give it structure:
-
-```markdown
-## Task: analyze-q1-data
-- **Goal**: Summarize Q1 revenue trends
-- **Acceptance Criteria**: Output contains trend direction, top 3 drivers, confidence level
-- **Inputs**: data/q1-revenue.csv (quarterly revenue by product line)
-- **Budget**: max 5 tool calls
-- **Stop Condition**: If data file is missing or malformed, stop and report
-```
-
-### 3. Add a Circuit Breaker
-
-Track failures per tool or API. Three consecutive failures in 60 seconds = stop calling. Wait 5 minutes, try once. This single pattern prevents the most expensive failure mode in multi-agent systems: retry storms.
-
-### 4. Decide Your Escalation Tiers
-
-| Tier | Risk | Action |
-|------|------|--------|
-| Autonomous | Low, reversible | Agent executes freely |
-| Notify | Medium, important milestones | Execute then inform human |
-| Gate | High, irreversible | Stop and wait for human approval |
+| You're stuck on… | Read this |
+|---|---|
+| Packaging a task for a Codex run that stays on track | [Task Envelope](patterns/coordination/task-envelope.md) |
+| Codex burned through retries and ate your credits | [Circuit Breaker](patterns/resilience/circuit-breaker.md) |
+| Subagent finished but said nothing useful | [Completion Notification](patterns/communication/completion-notification.md) + [Structured Error Events](patterns/communication/structured-error-events.md) |
+| Knowing when Codex can run autonomously vs. when to escalate | [HITL Escalation](patterns/communication/hitl-escalation.md) |
+| Long task died mid-way and you have no idea where | [Checkpoint & Resume](patterns/resilience/checkpoint-resume.md) |
+| Codex review of its own diff keeps missing things | [Cross-family review](guides/code-review.md) + [Challenge Loop](patterns/coordination/challenge-loop.md) |
 
 ---
 
-## Architecture in 30 Seconds
+## What's in here
 
-```
-                    ┌─────────────┐
-                    │ Orchestrator │  ← owns global state, dispatches tasks,
-                    │   (you/AI)   │    validates results, handles failures
-                    └──────┬──────┘
-                           │
-              ┌────────────┼────────────┐
-              │            │            │
-        ┌─────┴─────┐ ┌───┴───┐ ┌─────┴─────┐
-        │ Subagent A │ │  S.B  │ │ Subagent C │
-        │ (executor) │ │       │ │ (reviewer) │
-        └─────┬──────┘ └───┬───┘ └─────┬──────┘
-              │            │            │
-              └────────────┼────────────┘
-                           │
-                    ┌──────┴──────┐
-                    │    Files    │  ← the blackboard: status.md,
-                    │ (workspace) │    task envelopes, artifacts, checkpoints
-                    └─────────────┘
-```
+### `guides/` — when and why
 
-**Key properties:**
-- **Hierarchical supervisor**: One orchestrator coordinates everything
-- **Stateless subagents**: Receive context, execute, return results, terminate
-- **File-based communication**: All state lives in files, survives session crashes
-- **No peer-to-peer**: Subagents never talk to each other directly
+The thinking. Read these when you need to make a decision rather than copy a pattern.
 
-Why this shape? Because most AI coding tools (Claude Code, Codex, etc.) give you stateless subagents with no inter-agent messaging. The file blackboard is the only reliable coordination mechanism.
+| Guide | When to read |
+|---|---|
+| **[Orchestrating Codex](guides/orchestrating-codex.md)** | Setting up your CC ↔ Codex loop for the first time, or every time you need to remind yourself which sandbox flag does what |
+| [Model Selection](guides/model-selection.md) | Choosing whether this task is Sonnet subagent / Codex `medium` / Codex `xhigh` |
+| [Spec-Driven Development](guides/spec-driven-development.md) | Sending a Codex run with more than a one-line prompt — read this first |
+| [Code Review](guides/code-review.md) | Why cross-family review beats self-review, and what to set up instead |
+| [Development Pipeline](guides/development-pipeline.md) | Phase-based workflow for code and algorithm work |
+| [Error Handling](guides/error-handling.md) | The 5-layer fallback pyramid; retry vs. restart vs. escalate |
+| [Cost Control](guides/cost-control.md) | Per-task budgets, the credit-window math, anti-patterns that quietly burn money |
+| [Context Management](guides/context-management.md) | Keeping prompts under 8K, why you pass paths instead of pasting |
+| [Security Guardrails](guides/security-guardrails.md) | Tool permissions, path restrictions, prompt-injection defence |
+| [Learning Loop](guides/learning-loop.md) | Turning failures into prevention: debug KB, error SOP, quarterly audits |
 
----
+### `patterns/` — operational shapes
 
-## Key Insights From Production
+The patterns are grouped by the problem each one solves. Each pattern is short, has a "when you need it" line, and a worked example where it helps.
 
-1. **Subagents are stateless functions.** Treat them like pure functions: input context, get output, done. Don't expect them to remember anything.
+**`coordination/` — how the orchestrator and workers fit together**
+- [File Blackboard](patterns/coordination/file-blackboard.md) — workspace is the message bus
+- [Task Envelope](patterns/coordination/task-envelope.md) — structured packaging for every dispatch
+- [Challenge Loop](patterns/coordination/challenge-loop.md) — evidence-based adversarial review
 
-2. **Files are your message bus.** In a world without persistent agent sessions, the filesystem is your only reliable shared state.
+**`resilience/` — how things stay running when one part dies**
+- [Circuit Breaker](patterns/resilience/circuit-breaker.md) — stop retry storms before they cost you
+- [Checkpoint & Resume](patterns/resilience/checkpoint-resume.md) — survive a session crash mid-task
+- [Dead Letter Queue](patterns/resilience/dead-letter-queue.md) — failed tasks stay queued for retry
 
-3. **Silent failures are the #1 killer.** An agent that fails and says nothing is worse than one that fails loudly. Mandate structured error events.
+**`communication/` — how state and failure get reported**
+- [Completion Notification](patterns/communication/completion-notification.md) — done means done, said out loud
+- [Structured Error Events](patterns/communication/structured-error-events.md) — make failure noisy on purpose
+- [HITL Escalation](patterns/communication/hitl-escalation.md) — three-tier human-in-the-loop gating
 
-4. **Retries are not free.** Three retries of an expensive model call can cost more than the original task. Circuit breakers are not optional.
+### `templates/` — copy-paste starting points
 
-5. **Human escalation is a feature, not a failure.** Target 10-15% escalation rate. Too low = risky autonomy. Too high = human bottleneck.
+Markdown and JSON templates for envelopes, error events, checkpoints, decision cards, and dead letters. Lift one, fill it in, ship.
 
-6. **Context is an operational risk.** Bloated prompts cause hallucinations. Pass file paths and summaries, not full documents.
+### `examples/cc-orchestrate-cod/` — the smallest thing that runs
 
-7. **The minimum viable multi-agent system is smaller than you think.** Two agents with opposing briefs + one judge + a shared workspace covers ~80% of use cases.
+A minimal end-to-end working example: one orchestrator, one Codex worker, file blackboard, circuit breaker, completion notification. Read it once, fork it, replace the task with yours.
 
 ---
 
-## Design Principles
+## Architecture in 30 seconds
+
+<p align="center">
+  <img src="assets/architecture.png" alt="cc-orchestrator architecture" width="100%">
+</p>
+
+Key properties:
+
+- **Hierarchical layout.** One orchestrator owns global state. Workers run stateless and report back.
+- **Files are the message bus.** Coordination flows through markdown and JSON on disk, so it survives crashes.
+- **Cross-family review by default.** The model that writes the code hands the diff to a different model family for review.
+- **Codex sits in the worker tier.** It runs inside a sandbox optimised for execution; the orchestrator role lives one level up where the spec, the review, and the budget calls are made.
+
+Why this shape, and not something fancier? Because Claude Code's subagents are stateless and message each other only through files; because Codex sessions die when `/compact` times out; because the only reliable shared state across both is the filesystem. The architecture follows the constraints, not the other way around.
+
+---
+
+## Six things that took the longest to learn
+
+1. **`codex exec --full-auto` means `-a on-request -s workspace-write`.** Headless runs need `-a never` so the worker doesn't park on an approval prompt.
+2. **The Codex sandbox runs with network off by default.** When the task needs `npm install`, add `-c sandbox_workspace_write.network_access=true` explicitly — opening a flag is safer than turning the sandbox off.
+3. **Success has three signals.** Exit code 0 + a `turn.completed` event in the JSONL stream + your sidecar file from `--output-last-message` actually landed on disk. Trust all three; one alone lies.
+4. **Treat 30 minutes as the cap on a single Codex run.** `/compact` can time out past that point and `codex resume` will return a dead session. Split work into ≤25-min chunks, write digests at each break, start fresh sessions to continue.
+5. **Hand code reviews to a different model family.** Self-review has a 64.5% blind spot — the model that wrote the code shares priors with the one auditing. That's why Claude Code orchestrates on top and Sonnet does the cross-family review underneath.
+6. **Three parallel workers is the sweet spot.** On Codex Pro, four concurrent worktrees collides with the 5-hour credit window. Three is the cap.
+
+---
+
+## Design principles
 
 | Principle | Meaning |
-|-----------|---------|
-| **File over wire** | All coordination through files. No message queues, no shared memory, no RPC. |
-| **Crash-only design** | Any agent can die at any time. Checkpoints make this a non-event. |
-| **Budget-aware by default** | Every task has a cost ceiling. Circuit breakers enforce it automatically. |
-| **Escalation over autonomy** | When in doubt, ask the human. The cost of a wrong autonomous decision always exceeds the cost of a 5-minute wait. |
-| **Compress, don't accumulate** | Completed phases become summaries. Old context gets pruned. Long sessions get checkpointed and restarted. |
+|---|---|
+| **Worker over peer** | The orchestrator delegates and decides. Workers execute and report; they leave delegation to the layer above. |
+| **File over wire** | All coordination flows through files. The filesystem is the only message bus the patterns rely on. |
+| **Crash-only design** | Any worker can die at any time. Checkpoints make that a routine event. |
+| **Budget-aware by default** | Every dispatch has a cost ceiling. Circuit breakers enforce it. |
+| **Loud failure over quiet success** | A worker that fails out loud is easier to fix than one that fails silently. Mandate structured events. |
+| **Compress, don't accumulate** | Completed phases become summaries. Long sessions get checkpointed and replaced with fresh ones. |
 
 ---
 
 ## Contributing
 
 PRs welcome for:
-- New operational patterns with real production evidence
-- Additional templates for specific platforms or languages
-- War stories: documented failure modes and how you solved them
 
-Please include **when you hit the problem** and **what you tried first**, not just the final solution.
+- New operational patterns with real production evidence — include the failure that motivated them.
+- Templates for specific platforms or stacks (Aider, Cline, custom CC scripts).
+- War stories: documented failure modes and what you tried first.
 
-## Research Basis
+If you're submitting a pattern, please include **when you hit the problem** and **what you tried that didn't work**, alongside the final solution. The first half is what makes the pattern useful to other people.
 
-The development workflow patterns (Challenge Loop, Code Review, Spec-Driven Development, Development Pipeline) are grounded in a systematic 4-track deep research synthesis conducted in April 2026:
+## Companion repo
 
-- **Track A**: Quantitative strategy development lifecycle (academic literature from 2018-2026 plus practitioner sources from Two Sigma, D.E. Shaw, Man AHL, Winton, and Jane Street)
-- **Track B**: AI-assisted software engineering from 2024-2026 (the SWE-bench ecosystem, MetaGPT, AgentCoder, FunSearch, AlphaCodium, and the MAST failure taxonomy)
+This repo covers "how to keep the orchestration running." For the question of *which multi-agent topology* to even pick (Panel? Tournament? Debate? Plain hierarchy?), and the decision records for which ones earn their keep, see **[multi-agent-patterns](https://github.com/p3nchan/multi-agent-patterns)** — the design-time companion to this run-time playbook.
 
-Key sources include Bailey et al. on PBO, Marcos Lopez de Prado on AFML, debate work from ICML 2024, code-generation research from ICML 2024, DeepMind's orchestration scaling study, Huang et al. on self-correction at ICLR 2024, and the UC Berkeley MAST taxonomy presented as a NeurIPS 2025 Spotlight.
+## Research basis
+
+Patterns and guides here are grounded in:
+
+- A multi-track deep-research synthesis from April 2026 covering AI-assisted software engineering (the SWE-bench ecosystem, MetaGPT, AgentCoder, FunSearch, AlphaCodium, MAST failure taxonomy) and quantitative strategy lifecycle work (academic literature 2018–2026, plus practitioner sources from Two Sigma, D.E. Shaw, Man AHL, Winton, Jane Street).
+- Codex CLI 0.124.0 official docs and the Codex Use Cases corpus, cross-validated against a separate April 2026 deep-research synthesis on Codex orchestration (the source for `guides/orchestrating-codex.md`).
+- Anthropic's Claude Code documentation, the harness-design notes from March 2026, and Anthropic's published patterns for orchestrator + subagents.
+- Field experience running this stack in production for several months across multiple projects.
+
+Citations live in the individual guides.
 
 ## License
 
-MIT -- use these patterns however you want.
+MIT — use these patterns however you want.
 
 ---
 
-*Built from production experience running a multi-model, multi-agent system with Claude Code, Codex CLI, and Gemini. Every pattern in this repo exists because something broke without it.*
+*Written by Penna ([penchan.co](https://penchan.co)) — engineer who runs Claude Code + Codex daily, writes Chinese long-form on AI workflow at [@p3nchan](https://www.threads.net/@p3nchan). Every pattern in this repo exists because something broke without it.*

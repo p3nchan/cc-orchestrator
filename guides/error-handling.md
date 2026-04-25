@@ -214,4 +214,4 @@ If the same error appears 3+ times in 14 days, promote it from the debug KB to a
 
 ---
 
-*See also: [Circuit Breaker](../patterns/circuit-breaker.md), [HITL Escalation](../patterns/hitl-escalation.md), [Structured Error Events](../patterns/structured-error-events.md)*
+*See also: [Circuit Breaker](../patterns/resilience/circuit-breaker.md), [HITL Escalation](../patterns/communication/hitl-escalation.md), [Structured Error Events](../patterns/communication/structured-error-events.md)*

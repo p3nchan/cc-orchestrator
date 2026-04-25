@@ -126,4 +126,4 @@ The dead letter says "task failed" but doesn't explain what the task was for or 
 
 ---
 
-*See also: [Dead Letter Template](../templates/dead-letter.json), [Circuit Breaker](circuit-breaker.md) for the pattern that feeds into dead letters.*
+*See also: [Dead Letter Template](../../templates/dead-letter.json), [Circuit Breaker](circuit-breaker.md) for the pattern that feeds into dead letters.*

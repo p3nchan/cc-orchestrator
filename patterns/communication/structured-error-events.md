@@ -2,7 +2,7 @@
 
 > Every subagent must report its status in a standard format. No silent failures. No ambiguous outcomes. If it ran, it reports.
 
-**Category**: Observability | **Complexity**: Low | **Prerequisite**: [Task Envelope](task-envelope.md)
+**Category**: Observability | **Complexity**: Low | **Prerequisite**: [Task Envelope](../coordination/task-envelope.md)
 
 ---
 
@@ -92,7 +92,7 @@ When you receive an event:
 | Event | Action |
 |-------|--------|
 | `completed` | Check acceptance criteria. If pass → accept. If fail → retry (up to 2x). |
-| `FAILED` | Log error. Pause dependent tasks. Classify error type (see [Error Handling](../guides/error-handling.md)). Decide: retry, restart, or escalate. |
+| `FAILED` | Log error. Pause dependent tasks. Classify error type (see [Error Handling](../../guides/error-handling.md)). Decide: retry, restart, or escalate. |
 | `running` | If within timeout → wait. If past timeout → nudge or kill. |
 | `blocked` | Read the reason. If you can resolve it → resolve and resume. If not → escalate. |
 | No event at all | **This is the worst case.** After timeout, assume failure. Kill the agent, write a failure event yourself, proceed with error handling. |
@@ -120,4 +120,4 @@ The human (or orchestrator) then has to read the entire response to figure out i
 
 ---
 
-*See also: [Error Event Template](../templates/error-event.md), [Circuit Breaker](circuit-breaker.md) for what happens after repeated failures.*
+*See also: [Error Event Template](../../templates/error-event.md), [Circuit Breaker](../resilience/circuit-breaker.md) for what happens after repeated failures.*

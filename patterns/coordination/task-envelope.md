@@ -164,4 +164,4 @@ This field exists because algorithm agents will happily produce a beautiful fals
 
 ---
 
-*See also: [Templates](../templates/task-envelope.md) for copy-paste formats, [Context Management](../guides/context-management.md) for input optimization.*
+*See also: [Templates](../../templates/task-envelope.md) for copy-paste formats, [Context Management](../../guides/context-management.md) for input optimization.*

@@ -164,4 +164,4 @@ Before starting any multi-agent workflow:
 
 ---
 
-*See also: [HITL Escalation](../patterns/hitl-escalation.md) for gate tier implementation, [File Blackboard](../patterns/file-blackboard.md) for write access control.*
+*See also: [HITL Escalation](../patterns/communication/hitl-escalation.md) for gate tier implementation, [File Blackboard](../patterns/coordination/file-blackboard.md) for write access control.*

@@ -150,4 +150,4 @@ The same information appears in the system prompt, the task envelope, and a file
 
 ---
 
-*See also: [Task Envelope](../patterns/task-envelope.md) for structuring inputs, [Cost Control](cost-control.md) for the financial impact of context bloat.*
+*See also: [Task Envelope](../patterns/coordination/task-envelope.md) for structuring inputs, [Cost Control](cost-control.md) for the financial impact of context bloat.*

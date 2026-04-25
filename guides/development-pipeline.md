@@ -59,7 +59,7 @@ This phase is conditional. Use it when the direction is uncertain or the downsid
 
 ### Phase 1: Spec + Challenge
 
-Build a Structured Handoff, then run a [Challenge Loop](../patterns/challenge-loop.md). This is where you remove the most expensive misunderstandings: data leakage, wrong objective, invalid benchmark, and vague success criteria.
+Build a Structured Handoff, then run a [Challenge Loop](../patterns/coordination/challenge-loop.md). This is where you remove the most expensive misunderstandings: data leakage, wrong objective, invalid benchmark, and vague success criteria.
 
 ### Phase 2: Implementation + Validation
 
@@ -165,4 +165,4 @@ That split is the point: use the light pipeline for code, the heavy pipeline for
 
 *This guide synthesizes findings from four parallel deep research tracks completed on April 15, 2026.*
 
-*See also: [Challenge Loop](../patterns/challenge-loop.md), [Code Review](code-review.md), [Spec-Driven Development](spec-driven-development.md), [Cost Control](cost-control.md)*
+*See also: [Challenge Loop](../patterns/coordination/challenge-loop.md), [Code Review](code-review.md), [Spec-Driven Development](spec-driven-development.md), [Cost Control](cost-control.md)*

@@ -2,7 +2,7 @@
 
 > Before any high-risk operation or at the end of any significant phase, write a checkpoint. When a session crashes, you resume from the checkpoint instead of starting over.
 
-**Category**: Resilience | **Complexity**: Medium | **Prerequisite**: [File Blackboard](file-blackboard.md)
+**Category**: Resilience | **Complexity**: Medium | **Prerequisite**: [File Blackboard](../coordination/file-blackboard.md)
 
 ---
 
@@ -144,4 +144,4 @@ The crash cost zero work because the checkpoint captured the state between phase
 
 ---
 
-*See also: [Checkpoint Template](../templates/checkpoint.json), [Error Handling Guide](../guides/error-handling.md) for rollback strategies.*
+*See also: [Checkpoint Template](../../templates/checkpoint.json), [Error Handling Guide](../../guides/error-handling.md) for rollback strategies.*

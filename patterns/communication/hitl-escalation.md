@@ -132,4 +132,4 @@ For notification-based systems (chat, email, webhook):
 
 ---
 
-*See also: [Decision Card Template](../templates/decision-card.md), [Error Handling Guide](../guides/error-handling.md) for when errors trigger escalation.*
+*See also: [Decision Card Template](../../templates/decision-card.md), [Error Handling Guide](../../guides/error-handling.md) for when errors trigger escalation.*

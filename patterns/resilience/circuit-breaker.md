@@ -136,7 +136,7 @@ When your primary provider goes down:
 | Network timeout | Yes | Connection problems won't fix in the next second |
 | 401 (auth failure) | **No** | This is a config issue. Fix the token, don't wait. |
 | 400 (bad request) | **No** | This is your bug. Retrying won't help. |
-| Logic error (bad output) | **No** | The API worked fine; your prompt was wrong. Use [Task Envelope](task-envelope.md) retry logic instead. |
+| Logic error (bad output) | **No** | The API worked fine; your prompt was wrong. Use [Task Envelope](../coordination/task-envelope.md) retry logic instead. |
 
 ## Real Failure Modes
 
@@ -160,4 +160,4 @@ Provider comes back online. All your HALF-OPEN breakers probe at the same second
 
 ---
 
-*See also: [Error Handling Guide](../guides/error-handling.md) for the full retry-vs-restart decision tree.*
+*See also: [Error Handling Guide](../../guides/error-handling.md) for the full retry-vs-restart decision tree.*

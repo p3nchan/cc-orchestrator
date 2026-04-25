@@ -164,4 +164,4 @@ Track these weekly. Trends matter more than absolute numbers. A rising retry rat
 
 ---
 
-*See also: [Error Handling Guide](error-handling.md) for classification and response, [HITL Escalation](../patterns/hitl-escalation.md) for calibrating the escalation rate.*
+*See also: [Error Handling Guide](error-handling.md) for classification and response, [HITL Escalation](../patterns/communication/hitl-escalation.md) for calibrating the escalation rate.*

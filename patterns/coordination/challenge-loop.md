@@ -136,4 +136,4 @@ The key was not "six rounds." The key was that every accepted challenge came wit
 
 ---
 
-*See also: [Task Envelope](task-envelope.md), [Model Selection](../guides/model-selection.md), [Error Handling](../guides/error-handling.md)*
+*See also: [Task Envelope](task-envelope.md), [Model Selection](../../guides/model-selection.md), [Error Handling](../../guides/error-handling.md)*

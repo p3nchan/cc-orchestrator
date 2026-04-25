@@ -125,4 +125,4 @@ The implementation generated from the second spec took less review because the a
 
 ---
 
-*See also: [Code Review](code-review.md), [Development Pipeline](development-pipeline.md), [Task Envelope](../patterns/task-envelope.md)*
+*See also: [Code Review](code-review.md), [Development Pipeline](development-pipeline.md), [Task Envelope](../patterns/coordination/task-envelope.md)*

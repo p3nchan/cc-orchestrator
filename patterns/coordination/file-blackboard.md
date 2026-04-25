@@ -125,4 +125,4 @@ At no point did Agent A and Agent B communicate directly. The orchestrator coord
 
 ---
 
-*See also: [Task Envelope](task-envelope.md) for what goes in those task files, [Checkpoint & Resume](checkpoint-resume.md) for crash recovery.*
+*See also: [Task Envelope](task-envelope.md) for what goes in those task files, [Checkpoint & Resume](../resilience/checkpoint-resume.md) for crash recovery.*

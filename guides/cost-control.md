@@ -206,4 +206,4 @@ Everything else (caching, batching, fine-tuning) is optimization beyond the basi
 
 ---
 
-*See also: [Model Selection](model-selection.md), [Task Envelope](../patterns/task-envelope.md), [Context Management](context-management.md)*
+*See also: [Model Selection](model-selection.md), [Task Envelope](../patterns/coordination/task-envelope.md), [Context Management](context-management.md)*
