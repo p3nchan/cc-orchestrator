@@ -110,7 +110,7 @@ Spec（Structured Handoff）
 
 延伸閱讀：
 
-- Part 1：<https://penchan.co/ai/orchestration-playbook/>
+- Part 1：<https://penchan.co/ai/openclaw/orchestration-playbook/>
 - GitHub Repo：<https://github.com/p3nchan/orchestration-playbook>
 
 本文僅供研究與討論，非投資建議。DYOR + NFA。

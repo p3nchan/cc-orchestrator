@@ -4,7 +4,7 @@
 
 # cc-orchestrator
 
-> **🐧 中文版** — [README.zh-TW.md](README.zh-TW.md) · [penchan.co/ai/orchestration-playbook](https://penchan.co/ai/orchestration-playbook/)
+> **🐧 中文版** — [README.zh-TW.md](README.zh-TW.md) · [penchan.co/ai/openclaw/orchestration-playbook](https://penchan.co/ai/openclaw/orchestration-playbook/)
 
 **Run Claude Code as the orchestrator. Use Codex CLI as the worker. This is the playbook for the parts the official docs leave to you.**
 

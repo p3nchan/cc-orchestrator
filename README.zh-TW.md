@@ -4,7 +4,7 @@
 
 # cc-orchestrator
 
-> **🐧 English** — [README.md](README.md) · [中文長文](https://penchan.co/ai/orchestration-playbook/)
+> **🐧 English** — [README.md](README.md) · [中文長文](https://penchan.co/ai/openclaw/orchestration-playbook/)
 
 **用 Claude Code 當 orchestrator，把 Codex CLI 當 worker。中間那層官方文件留給你自己摸的東西，這份 repo 全部記下來了。**
 
